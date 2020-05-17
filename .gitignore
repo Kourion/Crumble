@@ -39,6 +39,16 @@ Vfx/
 Engine.h
 Scurvy/*.xcf
 *.xcf
+Scurvy/*.ico
+*.ico
+Scurvy/score.dat
+score.dat
+Scurvy/*.vcx*
+*.vcx*
+Scurvy/Scurvy.rc
+Scurvy.rc
+Scurvy/resource.h
+resource.h
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
