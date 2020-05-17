@@ -79,6 +79,7 @@ void pld::Core::loadVfx() {
 	if (sounds->at(1).get()->load(L"./Vfx/splash.mp3")) { ++status; }
 	if (sounds->at(2).get()->load(L"./Vfx/chop.mp3")) { ++status; }
 	if (sounds->at(3).get()->load(L"./Vfx/crack.mp3")) { ++status; }
+	if (sounds->at(4).get()->load(L"./Vfx/sound_stab.mp3")) { ++status; }
 	if (status != vfx_num) {
 		std::cerr << "VFX load failure!" << std::endl;
 	}
