@@ -37,6 +37,7 @@ pld::State pld::Core::onUserUpdateLevel(float elapsed_time) {
 		level.impacts.clear();
 		level.lvl++;
 		level.start = true;
+		level.levelUp = true;
 		return pld::State::LevelUp;
 	}
 
@@ -75,6 +76,9 @@ void pld::Core::drawLevel(bool generateLevel) {
 	DrawStringDecal({ 32, (float)(3+level.top_btm_offset) }, str, olc::Pixel(246, 198, 55), { 2.0f, 2.0f});
 	
 	if (generateLevel) {
+#if defined(pldSOUND)
+		sounds->at(4).get()->play();
+#endif
 		generateWallElements();
 		level.start = false;
 		level.next = false;

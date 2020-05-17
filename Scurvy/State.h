@@ -40,6 +40,7 @@ namespace pld {
 
 		// Timers:
 		float switch_timer = 0.0f;
+		bool levelUp = false;
 	};
 
 	struct Tiles {

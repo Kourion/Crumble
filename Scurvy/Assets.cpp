@@ -80,6 +80,11 @@ void pld::Core::loadVfx() {
 	if (sounds->at(2).get()->load(L"./Vfx/chop.mp3")) { ++status; }
 	if (sounds->at(3).get()->load(L"./Vfx/crack.mp3")) { ++status; }
 	if (sounds->at(4).get()->load(L"./Vfx/sound_stab.mp3")) { ++status; }
+	if (sounds->at(5).get()->load(L"./Vfx/short_fanfare.mp3")) { ++status; }
+	if (sounds->at(6).get()->load(L"./Vfx/long_fanfare.mp3")) { ++status; }
+	if (sounds->at(7).get()->load(L"./Vfx/launch.mp3")) { ++status; }
+	if (sounds->at(8).get()->load(L"./Vfx/sinking.mp3")) { ++status; }
+	if (sounds->at(9).get()->load(L"./Vfx/menu_click.mp3")) { ++status; }
 	if (status != vfx_num) {
 		std::cerr << "VFX load failure!" << std::endl;
 	}

@@ -117,6 +117,7 @@ pld::State pld::Core::buttonResign(olc::vf2d pos, olc::vf2d scale, float elapsed
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(12), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
+			level.bolt.deactivateSilently();
 			reportStateChange();
 			return pld::State::Titlescreen;
 		}

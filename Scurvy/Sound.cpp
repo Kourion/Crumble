@@ -4,9 +4,9 @@
 #include "Sound.h"
 #include <uuids.h>
 
-bool pld::Sound::load(str_l szFile) { //LPCWSTR
+bool pld::Sound::load(str_l file) { //LPCWSTR
     destroy();
-    ready = false;
+    active = false;
     if (SUCCEEDED(CoCreateInstance(CLSID_FilterGraph,
         NULL,
         CLSCTX_INPROC_SERVER,
@@ -18,17 +18,17 @@ bool pld::Sound::load(str_l szFile) { //LPCWSTR
         graphBuilder->QueryInterface(IID_IBasicAudio, (void**)&basicAudio);
         graphBuilder->QueryInterface(IID_IMediaSeeking, (void**)&mediaSeeking);
 
-        HRESULT hresult = graphBuilder->RenderFile(szFile, NULL);
+        HRESULT hresult = graphBuilder->RenderFile(file, NULL);
         if (SUCCEEDED(hresult)) {
-            ready = true;
+            active = true;
             if (mediaSeeking) {
                 mediaSeeking->SetTimeFormat(&TIME_FORMAT_MEDIA_TIME);
-                mediaSeeking->GetDuration(&duration); // returns 10,000,000 for a second.
+                mediaSeeking->GetDuration(&duration);
                 duration = duration;
             }
         }
     }
-    return ready;
+    return active;
 }
 
 bool pld::Sound::play() {
@@ -39,23 +39,23 @@ bool pld::Sound::play() {
 }
 
 bool pld::Sound::run() {
-    if (ready && mediaControl) {
-        HRESULT hr = mediaControl->Run();
-        return SUCCEEDED(hr);
+    if (active && mediaControl) {
+        HRESULT hresult = mediaControl->Run();
+        return SUCCEEDED(hresult);
     }
     return false;
 }
 
 bool pld::Sound::stop() {
-    if (ready && mediaControl) {
-        HRESULT hr = mediaControl->Stop();
-        return SUCCEEDED(hr);
+    if (active && mediaControl) {
+        HRESULT hresult = mediaControl->Stop();
+        return SUCCEEDED(hresult);
     }
     return false;
 }
 
 bool pld::Sound::setVolume(long vol) {
-    if (ready && basicAudio) {
+    if (active && basicAudio) {
         HRESULT hresult = basicAudio->put_Volume(vol);
         return SUCCEEDED(hresult);
     }
@@ -63,7 +63,7 @@ bool pld::Sound::setVolume(long vol) {
 }
 
 long pld::Sound::getVolume() {
-    if (ready && basicAudio) {
+    if (active && basicAudio) {
         long vol = -1;
         HRESULT hresult = basicAudio->get_Volume(&vol);
         if (SUCCEEDED(hresult)) { return vol; }
@@ -76,30 +76,31 @@ LONGLONG pld::Sound::getDuration() {
 }
 
 LONGLONG pld::Sound::getCurrentPosition() {
-    if (ready && mediaSeeking) {
-        LONGLONG curpos = -1;
-        HRESULT hresult = mediaSeeking->GetCurrentPosition(&curpos);
-        if (SUCCEEDED(hresult)) { return curpos; }
+    if (active && mediaSeeking) {
+        LONGLONG cur_pos = -1;
+        HRESULT hresult = mediaSeeking->GetCurrentPosition(&cur_pos);
+        if (SUCCEEDED(hresult)) { return cur_pos; }
     }
     return -1;
 }
 
-bool pld::Sound::setPositions(int64_t* pCurrent, int64_t* pStop, bool bAbsolutePositioning) {
-    if (ready && mediaSeeking) {
+bool pld::Sound::setPositions(LONGLONG *ptr_cur, LONGLONG *ptr_stop, bool absolute_pos) {
+    if (active && mediaSeeking) {
         DWORD flags = 0;
-        if (bAbsolutePositioning) {
+        if (absolute_pos) {
             flags = AM_SEEKING_AbsolutePositioning | AM_SEEKING_SeekToKeyFrame;
         }
         else {
             flags = AM_SEEKING_RelativePositioning | AM_SEEKING_SeekToKeyFrame;
         }
-        HRESULT hresult = mediaSeeking->SetPositions(pCurrent, flags, pStop, flags);
-        if (SUCCEEDED(hresult)) { return true; }
+        HRESULT hresult = mediaSeeking->SetPositions(ptr_cur, flags, ptr_stop, flags);
+        return (SUCCEEDED(hresult));
     }
     return false;
 }
 
 void pld::Sound::destroy() {
+    active = false;
     if (mediaControl) { mediaControl->Stop(); }
     if (graphBuilder) {
         graphBuilder->Release();
@@ -121,7 +122,6 @@ void pld::Sound::destroy() {
         mediaSeeking->Release();
         mediaSeeking = NULL;
     }
-    ready = false;
 }
 
 #endif

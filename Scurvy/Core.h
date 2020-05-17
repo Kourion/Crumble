@@ -25,7 +25,7 @@ private:
 #if defined(pldSOUND)
 	std::vector< std::shared_ptr<Sound> > sounds[4];
 	//std::vector<float> vfx[4];
-	const int vfx_num = 5;
+	const int vfx_num = 10;
 #endif
 	// Variables:
 	pld::Random random_engine = { 100 };

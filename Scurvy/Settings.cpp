@@ -23,6 +23,7 @@ pld::State pld::Core::onUserUpdateSettings(float elapsed_time) {
 		return escaped_from_state;
 	}
 	if (GetKey(olc::X).bPressed) {
+		level.bolt.deactivateSilently();
 		reportStateChange();
 		return pld::State::Titlescreen;
 	}
