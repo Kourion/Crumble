@@ -1,5 +1,9 @@
 #pragma once
 
+//#############################################################################
+//# The Core class, handles main loop, data, and executes the procedures:     #
+//#############################################################################
+
 #define pldSOUND
 
 #if defined(pldSOUND)

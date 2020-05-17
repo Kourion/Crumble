@@ -1,4 +1,9 @@
 #pragma once
+
+//#############################################################################
+//# Keeps track of all state defining variables, no methods allowed.          #
+//#############################################################################
+
 #include "Bolt.h"
 #include "LevelRow.h"
 #include "Impact.h"

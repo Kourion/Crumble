@@ -1,5 +1,9 @@
 #include "Core.h"
 
+//#############################################################################
+//# LevelUp procedures:                                                       #
+//#############################################################################
+
 pld::State pld::Core::onUserUpdateLevelUp(float elapsed_time) {
 	pld::State next = pld::State::LevelUp;
 	if (level.levelUp) {

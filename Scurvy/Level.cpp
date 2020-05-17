@@ -1,7 +1,7 @@
 #include "Core.h"
 
 //#############################################################################
-//# Level loop handler and level generation functions:                        #
+//# Level loop handler and level generation procedures:                       #
 //#############################################################################
 
 pld::State pld::Core::onUserUpdateLevel(float elapsed_time) {

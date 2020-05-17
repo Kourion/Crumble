@@ -2,6 +2,10 @@
 #include "Player.h"
 #include "Random.h"
 
+//#############################################################################
+//# IO stream operators for "Player" object.                                  #
+//#############################################################################
+
 std::ostream& pld::operator<<(std::ostream& stream, const Player& obj)
 {
     //This formating here with endl is needed.

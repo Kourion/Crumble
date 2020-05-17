@@ -1,5 +1,9 @@
 #pragma once
 
+//#############################################################################
+//# Sound class as interface for the windows api:                             #
+//#############################################################################
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <mmsystem.h>

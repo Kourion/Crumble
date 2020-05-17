@@ -1,6 +1,10 @@
 #include "Core.h"
 #if defined(pldSOUND)
 
+//#############################################################################
+//# Sound methods for interacting with the windows api:                       #
+//#############################################################################
+
 #include "Sound.h"
 #include <uuids.h>
 

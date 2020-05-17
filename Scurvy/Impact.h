@@ -1,6 +1,10 @@
 #pragma once
 #include "Engine.h"
 
+//#############################################################################
+//# Impact data struct, keeps track of all impacts and their animations:      #
+//#############################################################################
+
 namespace pld {
 	class Impact {
 	public:

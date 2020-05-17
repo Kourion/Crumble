@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
 
+//#############################################################################
+//# Player class, represents the player, does IO pre and post processing:     #
+//#############################################################################
+
 namespace pld {
 
     typedef union {

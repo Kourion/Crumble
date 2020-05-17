@@ -2,6 +2,10 @@
 #include "Engine.h"
 #include "Enum.h"
 
+//#############################################################################
+//# The bolt data structure, with minor housekeeing functions:                #
+//#############################################################################
+
 namespace pld {
 	class Bolt {
 	private:

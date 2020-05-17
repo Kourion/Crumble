@@ -1,5 +1,9 @@
 #pragma once
 
+//#############################################################################
+//# Collection of all pure enums, no properties or methods allowed:           #
+//#############################################################################
+
 namespace pld {
 	enum class State {
 		Titlescreen,

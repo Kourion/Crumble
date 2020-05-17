@@ -2,6 +2,10 @@
 #include <stdint.h>
 #include <random>
 
+//#############################################################################
+//# Implementation of a non crypto RNG, using xoroshiro:                      #
+//#############################################################################
+
 namespace pld {
 	class Random {
 	private:

@@ -2,6 +2,10 @@
 #include "Enum.h"
 #include "Engine.h"
 
+//#############################################################################
+//# Paddle data struct, represents state of a paddle:                         #
+//#############################################################################
+
 namespace pld {
 	class Paddle {
 	public:

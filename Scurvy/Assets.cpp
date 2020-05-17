@@ -1,7 +1,7 @@
 #include "Core.h"
 
 //#############################################################################
-//# Sprites and Decals functions:                                             #
+//# Asset loader for Sprites, Decals and Vfx:                                 #
 //#############################################################################
 
 void pld::Core::loadSpritesAndDecals() {

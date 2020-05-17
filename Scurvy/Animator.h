@@ -1,5 +1,9 @@
 #pragma once
 
+//#############################################################################
+//# Animation controlling data:                                               #
+//#############################################################################
+
 namespace pld {
 	struct Animator {
 		// Collection of the frame control floats.

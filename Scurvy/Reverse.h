@@ -1,5 +1,9 @@
 #pragma once
 
+//#############################################################################
+//# Wrapper for map.reverse() functionality:                                  #
+//#############################################################################
+
 template <typename T>
 struct reversion_wrapper { T& iterable; };
 
