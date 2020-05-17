@@ -52,6 +52,14 @@ pld::State pld::Core::onUserUpdateTitlescreen(float elapsed_time) {
 		(float)(ScreenHeight() / 2 + button_offset_y * getGlobalScale().y) },
 		button_scale, elapsed_time, next);
 	
+	if (sounds->at(0).get()->getCurrentPosition() == sounds->at(1).get()->getDuration()) {
+		LONGLONG zero = 0;
+		LONGLONG duration = sounds->at(1).get()->getDuration();
+		sounds->at(0).get()->setPositions(&zero, &duration, true);
+		sounds->at(0).get()->play();
+	}
+
+
 	return next;
 }
 

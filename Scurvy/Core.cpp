@@ -5,9 +5,9 @@
 //#############################################################################
 
 bool pld::Core::OnUserCreate() {
+	initVfx();
 	loadSpritesAndDecals();
 	setPresets();
-	initVfx();
 	reportStateChange();
 	this->state = pld::State::Titlescreen;
 	return true;
@@ -30,7 +30,7 @@ bool pld::Core::OnUserUpdate(float elapsed_time) {
 		default:
 			state = pld::State::Titlescreen; break;
 	}
-	return true;
+	return scurvy;
 }
 
 void pld::Core::reportStateChange(bool set_to) {

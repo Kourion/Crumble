@@ -22,6 +22,7 @@ pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 			// warp color : drawButton(pos, scale, dcl_text->at(5));
 			drawButton(pos, scale, {horizontal_tiles, vertical_tiles}, dcl_text->at(text), olc::GREY, true);
 			if (GetMouse(0).bPressed) {
+				sounds->at(9).get()->play();
 				reportStateChange();
 				return pld::State::Ease;
 			}
@@ -117,6 +118,7 @@ pld::State pld::Core::buttonResign(olc::vf2d pos, olc::vf2d scale, float elapsed
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(12), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
+			sounds->at(9).get()->play();
 			level.bolt.deactivateSilently();
 			reportStateChange();
 			return pld::State::Titlescreen;
@@ -139,8 +141,10 @@ pld::State pld::Core::buttonQuit(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(6), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
+			sounds->at(9).get()->play();
 			OnUserDestroy();
-			exit(EXIT_SUCCESS);
+			//exit(EXIT_SUCCESS);
+			scurvy = false;
 			return state;
 		}
 	}
@@ -161,6 +165,7 @@ pld::State pld::Core::buttonHighscore(olc::vf2d pos, olc::vf2d scale, float elap
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(7), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
+			sounds->at(9).get()->play();
 			if (level.player1.name.size() == 0) {
 				level.player1.name = "THE FOOL";
 			}
@@ -185,6 +190,7 @@ pld::State pld::Core::buttonEase(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(text), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
+			sounds->at(9).get()->play();
 			this->ease = ease;
 			// state change broadcast needed?
 			return pld::State::Level;

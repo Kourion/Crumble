@@ -43,7 +43,7 @@ private:
 	pld::ScoreScreen score;
 
 	bool state_changed = false;
-
+	bool scurvy = true;
 public:
 	// Engine Call Implementation:
 	Core() {
