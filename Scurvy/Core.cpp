@@ -45,16 +45,18 @@ void pld::Core::resetIfStateChanged() {
 			level.impacts.clear();
 			DrawSprite({ 0, 0 }, spr_background.get());
 #if defined(pldSOUND)
+			sounds->at(11).get()->stop();
 			sounds->at(0).get()->run();
 #endif
 			//drawSpriteBorder();
 		}
 		if (state == pld::State::Highscore) {
-			// MEDO add highscore music
+			DrawSprite({ 0, 0 }, spr_highscore.get(), 1U);
 		}
 		if (state == pld::State::Level) {
 #if defined(pldSOUND)
 			sounds->at(0).get()->stop();
+			sounds->at(11).get()->stop();
 #endif
 			level.player1.points.flt = 0.0f;
 			level.bolt.speed = 0.0f;

@@ -111,6 +111,7 @@ private:
 	std::unique_ptr<olc::Sprite> spr_title; 
 	std::unique_ptr<olc::Decal> dcl_title;
 	std::unique_ptr<olc::Sprite> spr_background;
+	std::unique_ptr<olc::Sprite> spr_highscore;
 	std::vector< std::shared_ptr<olc::Sprite> > spr_text[14];
 	std::vector< std::shared_ptr<olc::Decal> > dcl_text[14];
 	std::vector< std::shared_ptr<olc::Sprite> > spr_water[5];
@@ -130,7 +131,7 @@ private:
 	std::vector< std::shared_ptr<olc::Decal> > dcl_impact[9];
 #if defined(pldSOUND)
 	std::vector< std::shared_ptr<Sound> > sounds[11];
-	const int vfx_num = 11;
+	const int vfx_num = 12;
 #endif
 };
 }

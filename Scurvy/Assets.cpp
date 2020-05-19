@@ -7,7 +7,8 @@
 void pld::Core::loadSpritesAndDecals() {
 	this->spr_title = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/scurvy_alpha.png"));
 	this->dcl_title = std::unique_ptr<olc::Decal>(new olc::Decal(spr_title.get()));
-	this->spr_background = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/pirate_2.png"));
+	this->spr_background = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/pirate.png"));
+	this->spr_highscore = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/ocean_1.png"));
 	for (int64_t i = 0; i < 14; i++) {
 		// Loop length needs to always match the vector having the most elements.
 		if (i < 10) { this->spr_border->push_back(std::shared_ptr<olc::Sprite>(new olc::Sprite("./Graphics/border_" + std::to_string(i) + ".png"))); }
@@ -76,7 +77,7 @@ void pld::Core::loadVfx() {
 		sounds->push_back(std::shared_ptr<Sound>(new Sound));
 	}
 	int status = 0;
-	if (sounds->at(0).get()->load(L"./Vfx/music.mp3")) { ++status; }
+	if (sounds->at(0).get()->load(L"./Vfx/music_0.mp3")) { ++status; }
 	if (sounds->at(1).get()->load(L"./Vfx/splash.mp3")) { ++status; }
 	if (sounds->at(2).get()->load(L"./Vfx/chop.mp3")) { ++status; }
 	if (sounds->at(3).get()->load(L"./Vfx/crack.mp3")) { ++status; }
@@ -87,12 +88,13 @@ void pld::Core::loadVfx() {
 	if (sounds->at(8).get()->load(L"./Vfx/sinking.mp3")) { ++status; }
 	if (sounds->at(9).get()->load(L"./Vfx/menu_click_0.mp3")) { ++status; }
 	if (sounds->at(10).get()->load(L"./Vfx/menu_click_1.mp3")) { ++status; }
+	if (sounds->at(11).get()->load(L"./Vfx/music_1.mp3")) { ++status; }
 	if (status != vfx_num) {
 		std::cerr << "VFX load failure!" << std::endl;
 	}
 	for (int i = 0; i < vfx_num; i++)
 	{
-		sounds->at(i).get()->setVolume(-50);
+		sounds->at(i).get()->setVolume(-75);
 	}
 	sounds->at(10).get()->setVolume(0);
 #endif
