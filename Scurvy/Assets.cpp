@@ -67,8 +67,9 @@ void pld::Core::loadSpritesAndDecals() {
 	}
 }
 
-#if defined(pldSOUND)
+
 void pld::Core::loadVfx() {
+#if defined(pldSOUND)
 	//std::wstring mp3path = L"./music_0.mp3";
 	for (int i = 0; i < vfx_num; i++)
 	{
@@ -84,9 +85,15 @@ void pld::Core::loadVfx() {
 	if (sounds->at(6).get()->load(L"./Vfx/long_fanfare.mp3")) { ++status; }
 	if (sounds->at(7).get()->load(L"./Vfx/launch.mp3")) { ++status; }
 	if (sounds->at(8).get()->load(L"./Vfx/sinking.mp3")) { ++status; }
-	if (sounds->at(9).get()->load(L"./Vfx/menu_click.mp3")) { ++status; }
+	if (sounds->at(9).get()->load(L"./Vfx/menu_click_0.mp3")) { ++status; }
+	if (sounds->at(10).get()->load(L"./Vfx/menu_click_1.mp3")) { ++status; }
 	if (status != vfx_num) {
 		std::cerr << "VFX load failure!" << std::endl;
 	}
-}
+	for (int i = 0; i < vfx_num; i++)
+	{
+		sounds->at(i).get()->setVolume(-50);
+	}
+	sounds->at(10).get()->setVolume(0);
 #endif
+}

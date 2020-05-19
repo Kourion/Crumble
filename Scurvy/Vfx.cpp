@@ -4,9 +4,8 @@
 //# Load Vfx, currently only for Windows:                                     #
 //#############################################################################
 
-#if defined(pldSOUND)
-
 void pld::Core::initVfx() {
+#if defined(pldSOUND)
 	// Initialize COM
 	::CoInitialize(NULL);
 	loadVfx();
@@ -16,6 +15,5 @@ void pld::Core::initVfx() {
 	//{
 	//	vfx->push_back(0.0f);
 	//}
-}
-
 #endif
+}

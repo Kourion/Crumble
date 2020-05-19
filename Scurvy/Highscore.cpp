@@ -100,8 +100,8 @@ pld::State pld::Core::showHighscore(float fElapsedTime) {
 
     align_y = player1_y + (50 * getGlobalScale().y);
 
-    next = buttonResign({ align_x, align_y }, {0.5f, 0.5f}, fElapsedTime, next);
-    next = buttonRestart({ align_x + 18 * tiles.size * 0.5f, align_y }, { 0.5f, 0.5f }, fElapsedTime, next);
+    next = buttonResign({ align_x, align_y }, {0.5f, 0.5f}, fElapsedTime, next, 6);
+    next = buttonRestart({ align_x + 18 * tiles.size * 0.5f, align_y }, { 0.5f, 0.5f }, fElapsedTime, next, 7);
 
     // MEDO: Give choice between play again and titlescreen.
     if (GetKey(olc::ESCAPE).bPressed) {

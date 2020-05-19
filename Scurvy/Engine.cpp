@@ -21,13 +21,18 @@ int main()
 //		screen_height = startup.getScreenHeight();
 //	}
 
-	pld::Core core;
-	//if (core.Construct(screen_width_a, screen_height_a, 1, 1, true, true)) {
-	if (core.Construct(screen_width_b, screen_height_b, 1, 1, false, true)) {
-		core.Start();
+	bool restart = true;
+
+	while (restart) {
+		pld::Core core;
+		restart = core.restart;
+		//if (core.Construct(screen_width_a, screen_height_a, 1, 1, true, true)) {
+		if (core.Construct(screen_width_b, screen_height_b, 1, 1, false, true)) {
+			core.Start();
+		}
+		//screen_width = core.settings.screen_width;
+		//screen_height = core.settings.screen_height;
 	}
-
-
 
 	return 0;
 }

@@ -4,11 +4,11 @@
 //# Button drawing, listener and interactions:                                #
 //#############################################################################
 
-pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state) {
-	return buttonPlay(pos, scale, elapsed_time, false, state);
+pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state, int id) {
+	return buttonPlay(pos, scale, elapsed_time, false, state, id);
 }
 
-pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_time, bool is_restart, pld::State state) {
+pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_time, bool is_restart, pld::State state, int id) {
 	int vertical_tiles = 5;
 	int horizontal_tiles = is_restart ? 15 : 11;
 	olc::vf2d buttonDimensions = { horizontal_tiles*tiles.size *scale.x, vertical_tiles*tiles.size *scale.y };
@@ -26,9 +26,11 @@ pld::State pld::Core::buttonPlay(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 				reportStateChange();
 				return pld::State::Ease;
 			}
+			updateSelectionSound(true, id);
 		}
 		else {
 			drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(text), olc::NONE, true);
+			updateSelectionSound(false, id);
 		}
 	}
 	else {
@@ -103,11 +105,11 @@ void pld::Core::drawButton(olc::vf2d pos, olc::vf2d scale, olc::vi2d size, std::
 	//DrawDecal(const olc::vf2d & pos, olc::Decal * decal, const olc::vf2d & scale, const olc::Pixel & tint)
 }
 
-pld::State pld::Core::buttonRestart(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state) {
-	return buttonPlay(pos, scale, elapsed_time, true, state);
+pld::State pld::Core::buttonRestart(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state, int id) {
+	return buttonPlay(pos, scale, elapsed_time, true, state, id);
 }
 
-pld::State pld::Core::buttonResign(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state) {
+pld::State pld::Core::buttonResign(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state, int id) {
 	int vertical_tiles = 5;
 	int horizontal_tiles = 15;
 	olc::vf2d buttonDimensions = { horizontal_tiles * tiles.size * scale.x, vertical_tiles * tiles.size * scale.y };
@@ -123,14 +125,16 @@ pld::State pld::Core::buttonResign(olc::vf2d pos, olc::vf2d scale, float elapsed
 			reportStateChange();
 			return pld::State::Titlescreen;
 		}
+		updateSelectionSound(true, id);
 	}
 	else {
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(12), olc::NONE, true);
+		updateSelectionSound(false, id);
 	}
 	return state;
 }
 
-pld::State pld::Core::buttonQuit(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state) {
+pld::State pld::Core::buttonQuit(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state, int id) {
 	int vertical_tiles = 5;
 	int horizontal_tiles = 11;
 	olc::vf2d buttonDimensions = { horizontal_tiles * tiles.size * scale.x, vertical_tiles * tiles.size * scale.y };
@@ -144,17 +148,19 @@ pld::State pld::Core::buttonQuit(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 			sounds->at(9).get()->play();
 			OnUserDestroy();
 			//exit(EXIT_SUCCESS);
-			scurvy = false;
+			load_next_frame = false;
 			return state;
 		}
+		updateSelectionSound(true, id);
 	}
 	else {
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(6), olc::NONE, true);
+		updateSelectionSound(false, id);
 	}
 	return state;
 }
 
-pld::State pld::Core::buttonHighscore(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state) {
+pld::State pld::Core::buttonHighscore(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::State state, int id) {
 	int vertical_tiles = 5;
 	int horizontal_tiles = 19;
 	olc::vf2d buttonDimensions = { horizontal_tiles * tiles.size * scale.x, vertical_tiles * tiles.size * scale.y };
@@ -171,14 +177,16 @@ pld::State pld::Core::buttonHighscore(olc::vf2d pos, olc::vf2d scale, float elap
 			}
 			return pld::State::Highscore;
 		}
+		updateSelectionSound(true, id);
 	}
 	else {
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(7), olc::NONE, true);
+		updateSelectionSound(false, id);
 	}
 	return state;
 }
 
-pld::State pld::Core::buttonEase(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::Ease ease, pld::State state) {
+pld::State pld::Core::buttonEase(olc::vf2d pos, olc::vf2d scale, float elapsed_time, pld::Ease ease, pld::State state, int id) {
 	int vertical_tiles = 5;
 	int horizontal_tiles = ease == Ease::Normal ? 15 : ease == Ease::Hard ? 11 : 26; // Last one is Ease::BoR.
 	olc::vf2d buttonDimensions = { horizontal_tiles * tiles.size * scale.x, vertical_tiles * tiles.size * scale.y };
@@ -186,7 +194,8 @@ pld::State pld::Core::buttonEase(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 	int text = ease == Ease::Normal ? 8 : ease == Ease::Hard ? 9 : 10; // Last one is Ease::BoR.
 	if (GetMouseX() > pos.x && GetMouseX() < pos.x + buttonDimensions.x
 		&& GetMouseY() > pos.y && GetMouseY() < pos.y + buttonDimensions.y) {
-
+		updateSelectionSound(true, id);
+		
 		// warp color : drawButton(pos, scale, dcl_text->at(5));
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(text), olc::GREY, true);
 		if (GetMouse(0).bPressed) {
@@ -198,6 +207,23 @@ pld::State pld::Core::buttonEase(olc::vf2d pos, olc::vf2d scale, float elapsed_t
 	}
 	else {
 		drawButton(pos, scale, { horizontal_tiles, vertical_tiles }, dcl_text->at(text), olc::NONE, true);
+		updateSelectionSound(false, id);
 	}
 	return state;
+}
+
+void pld::Core::updateSelectionSound(bool selected, int id) {
+#if defined (pldSOUND)	
+	if (selected) {
+		if (button.selected[id] == false) {
+			button.selected[id] = true;
+			sounds->at(10).get()->play();
+		}
+	}
+	else {
+		if (button.selected[id]) {
+			button.selected[id] = false;
+		}
+	}
+#endif
 }

@@ -17,7 +17,7 @@ pld::State pld::Core::onUserUpdateSettings(float elapsed_time) {
 		dcl_text->at(4), olc::NONE, false, false);
 
 	next = buttonResign({ ScreenWidth() / 2 - 4 *tiles.size * getGlobalScale().x,
-		ScreenHeight() / 2 - 2 * tiles.size * getGlobalScale().y }, { 0.5f, 0.5f }, elapsed_time, next);
+		ScreenHeight() / 2 - 2 * tiles.size * getGlobalScale().y }, { 0.5f, 0.5f }, elapsed_time, next, 8);
 
 	if (GetKey(olc::ESCAPE).bPressed) {
 		return escaped_from_state;

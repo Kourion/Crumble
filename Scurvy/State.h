@@ -58,4 +58,9 @@ namespace pld {
 		std::vector<Player> presets;
 		std::map<float, std::string> entries;
 	};
+
+	struct ButtonState {
+		int num = 10;
+		std::vector<bool> selected;
+	};
 }

@@ -7,6 +7,7 @@
 bool pld::Core::OnUserCreate() {
 	initVfx();
 	loadSpritesAndDecals();
+	initButtons();
 	setPresets();
 	reportStateChange();
 	this->state = pld::State::Titlescreen;
@@ -30,7 +31,7 @@ bool pld::Core::OnUserUpdate(float elapsed_time) {
 		default:
 			state = pld::State::Titlescreen; break;
 	}
-	return scurvy;
+	return load_next_frame;
 }
 
 void pld::Core::reportStateChange(bool set_to) {
@@ -49,7 +50,7 @@ void pld::Core::resetIfStateChanged() {
 			//drawSpriteBorder();
 		}
 		if (state == pld::State::Highscore) {
-			// MEOD add highscore music
+			// MEDO add highscore music
 		}
 		if (state == pld::State::Level) {
 #if defined(pldSOUND)
@@ -60,7 +61,7 @@ void pld::Core::resetIfStateChanged() {
 			level.impacts.clear();
 			level.start = true;
 			level.bolt.is_launched = false;
-			level.lvl = 1; // MEDO: Set back to 1.
+			level.lvl = 1;
 			level.lives = level.start_lives;
 			drawSpriteBorder();
 			drawWaterBottomSprite();
@@ -130,28 +131,21 @@ void pld::Core::setPresets() {
 	score.presets.push_back(Player(70000.0f, "THE BOATSWAIN"));
 	score.presets.push_back(Player(80000.0f, "THE HELMSMAN"));
 	score.presets.push_back(Player(99003.0f, "THE CAPTAIN"));
-	/*
-	presets.push_back(Player(7000.0f, "The Fool"));
-	presets.push_back(Player(14000.0f, "The Parrot"));
-	presets.push_back(Player(27000.0f, "The Cook"));
-	presets.push_back(Player(33000.0f, "The Deckhand"));
-	presets.push_back(Player(39000.0f, "The Cannoneer"));
-	presets.push_back(Player(45000.0f, "The Lookout"));
-	presets.push_back(Player(60000.0f, "The Navigator"));
-	presets.push_back(Player(70000.0f, "The Boatswain"));
-	presets.push_back(Player(80000.0f, "The Helmsman"));
-	presets.push_back(Player(99003.0f, "The Captain"));
-	*/
 }
 
 bool pld::Core::OnUserDestroy() {
-	std::cout << "OnUserDestroy called!" << std::endl;
 #if defined(pldSOUND)
 	for (int i = 0; i < vfx_num; ++i) {
 		sounds->at(i).get()->destroy();
 	}
-	// Uninitialize COM
+	// Uninitialize Base Component Object Model API.
 	::CoUninitialize();
 #endif
 	return true;
+}
+void pld::Core::initButtons() {
+	for (int i = 0; i < button.num; i++)
+	{
+		button.selected.push_back(0);
+	}
 }

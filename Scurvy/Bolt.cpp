@@ -93,6 +93,7 @@ void pld::Core::drawBolt(float elapsed_time) {
 			//	}
 			//}
 			if (GetKey(olc::SPACE).bReleased) {
+				sounds->at(7).get()->play();
 				level.bolt.speed = (float)(ease == Ease::Normal ? 500 : ease == Ease::Hard ? 700 : 900); //Last one is Ease::BoR
 				level.bolt.is_launched = true;
 				updateDeviation();

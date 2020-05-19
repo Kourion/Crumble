@@ -7,27 +7,18 @@
 pld::State pld::Core::onUserUpdateLevel(float elapsed_time) {
 	resetIfStateChanged();
 	drawLevel(level.start);
-	//drawWaterBottomDecal(elapsed_time);
 	drawPaddle(elapsed_time);
 	drawBolt(elapsed_time);
 	drawImpact(elapsed_time);
 
 	//////////////////////////////////////////////////////////
-	// TODO REMOVE THIS AND HAVE THE GAME ONLY END ON FAILURE!
+	// TODO check is this needed? Shouldnt the map auto report?
 	int remaining_bricks = 0;
 	for (auto& row : level.map) {
 		remaining_bricks += (int)row.second.pos.size();
 	}
 	if (remaining_bricks == 0) {
-		//reportStateChange();
-
 		level.next = true;
-		
-		
-		//game_over = false;
-		//bolt.deactivateSilently();
-		//just to see that it works!
-		//return pld::State::Level; //Settings
 	}
 	//////////////////////////////////////////////////////////
 
@@ -42,12 +33,15 @@ pld::State pld::Core::onUserUpdateLevel(float elapsed_time) {
 	}
 
 	if (level.game_over) {
-		reportStateChange();
+		// Note:
+		// In onUserUpdateHighscore() level.game_over is needed to be true.
+		// Resetting level.game_over occurs in showHighscore(), 
+		// when all game over cleanup is finished.
+
 		level.lvl = 1;
-		//game_over = false;
 		level.lives = level.start_lives;
 		level.bolt.deactivateSilently();
-		// TODO have this be highscore in the end but titlescreen for debug if needed
+		reportStateChange();
 		return pld::State::Highscore;
 	}
 
@@ -131,17 +125,13 @@ void pld::Core::generateWallElements() {
 		int x_offset = tiles.size;
 		y_offset = y_offset_max - (row_num * tiles.size) - (row_num * row_spacer);
 		int blocks = 0;
-		//std::cout << "r: (" << random_engine.isInit() << ")";
 		while (block_num > 0) {
 			int block_width = random_engine(1, std::min<int>(5, block_num));
-			//std::cout << block_width << ", ";
 			level.map[row_num].pos.push_back( { { x_offset, y_offset }, block_width } );
 			x_offset += block_width * tiles.size;
 			block_num -= block_width;
 			blocks++;
 		}
-		//std::cout << std::endl;
-
 		int empty_pixel_per_block = empty_pixel / blocks;
 		int spacing_offset = empty_pixel_per_block;
 		for (std::pair<olc::vi2d, int> &block : level.map[row_num].pos) {
@@ -149,5 +139,4 @@ void pld::Core::generateWallElements() {
 			spacing_offset += empty_pixel_per_block;
 		}
 	}
-
 }

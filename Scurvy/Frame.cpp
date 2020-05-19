@@ -35,7 +35,8 @@ void pld::Core::initWaterTiles() {
 	//std::cout << std::endl;
 }
 
-void pld::Core::drawWaterBottomDecal(float fElapsedTime) {
+// DEPRECATED: Use drawWaterBottomSprite() instead.
+void pld::Core::drawWaterBottomDecal(float elapsed_time) {
 	updateFieldWidth(ScreenWidth());
 	if (!level.water_initialised) {
 		initWaterTiles();

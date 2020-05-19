@@ -44,18 +44,19 @@ pld::State pld::Core::onUserUpdateTitlescreen(float elapsed_time) {
 	const int button_offset_highscore = (int)(button_highscore_horizontal_tiles * tiles.size * button_tile_scale + static_offset_highscore);
 	next = buttonQuit({ ScreenWidth() / 2 - button_offset_x * getGlobalScale().x,
 		(float)(ScreenHeight() / 2 + button_offset_y * getGlobalScale().y) },
-		button_scale, elapsed_time, next);
+		button_scale, elapsed_time, next, 0);
 	next = buttonHighscore({ ScreenWidth() / 2 - (button_offset_x - button_offset_quit) * getGlobalScale().x,
 		(float)(ScreenHeight() / 2 + button_offset_y * getGlobalScale().y) },
-		button_scale, elapsed_time, next);
+		button_scale, elapsed_time, next, 1);
 	next = buttonPlay({ ScreenWidth() / 2 - (button_offset_x - button_offset_quit - button_offset_highscore) * getGlobalScale().x,
 		(float)(ScreenHeight() / 2 + button_offset_y * getGlobalScale().y) },
-		button_scale, elapsed_time, next);
+		button_scale, elapsed_time, next, 2);
 	
 	if (sounds->at(0).get()->getCurrentPosition() == sounds->at(0).get()->getDuration()) {
-		LONGLONG zero = 0;
-		LONGLONG duration = sounds->at(0).get()->getDuration();
-		sounds->at(0).get()->setPositions(&zero, &duration, true);
+		//LONGLONG zero = 0;
+		//LONGLONG duration = sounds->at(0).get()->getDuration();
+		//sounds->at(0).get()->setPositions(&zero, &duration, true);
+		//sounds->at(0).get()->run();
 		sounds->at(0).get()->play();
 	}
 
