@@ -9,7 +9,7 @@ pld::State pld::Core::onUserUpdateEase(float elapsed_time) {
 	float button_tile_scale = 0.5f;
 	olc::vf2d button_scale = { button_tile_scale, button_tile_scale };
 
-	DrawDecal({ScreenWidth() / 2 - (931 / 2) * getGlobalScale().x, 
+	DrawDecal({(ScreenWidth() / 2) - (931 / 2) * getGlobalScale().x - 50 * getGlobalScale().x, 
 		(float)((ScreenHeight() / 2) - (18.0 * tiles.size * (double)button_tile_scale * 1.5 * getGlobalScale().y)) },
 		dcl_text->at(11).get());
 	

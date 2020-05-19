@@ -9,6 +9,8 @@
 
 pld::State pld::Core::onUserUpdateHighscore(float elapsed_time) {
     if (level.game_over || score.init) {
+        resetIfStateChanged();
+        sounds->at(11).get()->play();
         score.init = false;
         score.has_printed = false;
         score.entries.clear();
@@ -50,6 +52,9 @@ pld::State pld::Core::onUserUpdateHighscore(float elapsed_time) {
         }
         writer.close();
         //std::cout << "----------------------" << std::endl;
+    }
+    if (sounds->at(11).get()->getCurrentPosition() == sounds->at(11).get()->getDuration()) {
+        sounds->at(11).get()->play();
     }
     return showHighscore(elapsed_time);
 }
