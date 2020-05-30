@@ -38,19 +38,19 @@ void pld::Core::updatePaddleOffsetX(float base_speed, float elapsed_time, int nu
 	float paddle_speed = (base_speed + level.paddle.speed) * 3 * elapsed_time /* random_engine(1, 5)*/;
 	float max_offset = (float)((level.width - 2 * tiles.size) / 2);
 	if (paddle_speed > 0) {
-		if ((level.paddle.offset + paddle_speed) < (max_offset - level.paddle.width[num])) {
+		if ((level.paddle.offset + paddle_speed) < (max_offset - level.paddle.width[num]/2)) {
 			level.paddle.offset += paddle_speed;
 		}
 		else {
-			level.paddle.offset = max_offset - level.paddle.width[num];
+			level.paddle.offset = max_offset - level.paddle.width[num]/2;
 		}
 	}
 	else if (paddle_speed < 0) {
-		if ((level.paddle.offset + paddle_speed) > (-max_offset)) {
+		if ((level.paddle.offset + paddle_speed) > (-max_offset + level.paddle.width[num] / 2)) {
 			level.paddle.offset += paddle_speed;
 		}
 		else {
-			level.paddle.offset = -max_offset;
+			level.paddle.offset = -max_offset + level.paddle.width[num] / 2;
 		}
 	}
 }

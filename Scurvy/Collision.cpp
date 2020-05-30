@@ -25,21 +25,49 @@ pld::CollisionType pld::Core::willCollide(olc::vf2d expected_pos) {
 		row_pos = 0;
 		for (std::pair<olc::vi2d, int> brick : row.second.pos)
 		{
-			if (expected_pos.x > brick.first.x - level.bolt.scaled_radius 
+			if (
+				expected_pos.x > brick.first.x - level.bolt.scaled_radius 
 				&& expected_pos.x < brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius
-				&& expected_pos.y > brick.first.y - level.bolt.scaled_radius && expected_pos.y < brick.first.y + 32 + level.bolt.scaled_radius) {
+				&& expected_pos.y > brick.first.y - level.bolt.scaled_radius && expected_pos.y < brick.first.y + 32 + level.bolt.scaled_radius
+				&& (
+					(
+					expected_pos.x > brick.first.x  && expected_pos.x < brick.first.x + tiles.size * brick.second
+					&&
+					expected_pos.y > brick.first.y - level.bolt.scaled_radius && expected_pos.y < brick.first.y + 32 + level.bolt.scaled_radius
+					)
+					||
+					( 
+					expected_pos.x < brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius
+					&&
+					expected_pos.y > brick.first.y && expected_pos.y < brick.first.y + 32
+					)
+				   )
+				) 
+			{
 
-				float flt_distance_vertical =
-					level.bolt.up_down == Directions::Up ?
-					brick.first.y + 32 + level.bolt.scaled_radius - expected_pos.y :
-					expected_pos.y - brick.first.y - level.bolt.scaled_radius;
+				//float flt_distance_vertical =
+				//	level.bolt.up_down == Directions::Up ?
+				//	brick.first.y + 32 + level.bolt.scaled_radius - expected_pos.y :
+				//	expected_pos.y - brick.first.y - level.bolt.scaled_radius;
 
-				float flt_distance_horizontal =
-					level.bolt.left_right == Directions::Right ?
-					expected_pos.x - brick.first.x - level.bolt.scaled_radius :
-					brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius - expected_pos.x;
+				//float flt_distance_horizontal =
+				//	level.bolt.left_right == Directions::Right ?
+				//	expected_pos.x - brick.first.x - level.bolt.scaled_radius :
+				//	brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius - expected_pos.x;
 				
-				collision = std::abs(flt_distance_vertical) < std::abs(flt_distance_horizontal) ? CollisionType::BoxTop : CollisionType::BoxSide;
+				//collision = std::abs(flt_distance_vertical) < std::abs(flt_distance_horizontal) ? CollisionType::BoxTop : CollisionType::BoxSide;
+
+				if (expected_pos.x > brick.first.x && expected_pos.x < brick.first.x + tiles.size * brick.second
+					&&
+					expected_pos.y > brick.first.y - level.bolt.scaled_radius && expected_pos.y < brick.first.y + 32 + level.bolt.scaled_radius) {
+					collision = CollisionType::BoxTop;
+				}
+				else if (expected_pos.x < brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius
+						&&
+						expected_pos.y > brick.first.y&& expected_pos.y < brick.first.y + 32) {
+					collision = CollisionType::BoxSide;
+				}
+
 				//std::cout << std::abs(flt_distance_vertical) << ((bolt.up_down == Directions::Up) ? "Up" : "Down") << "," << std::abs(flt_distance_horizontal) << ((bolt.left_right == Directions::Right) ? "Right" : "Left") << std::endl;
 				row_num = row.first;
 

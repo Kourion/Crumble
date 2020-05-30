@@ -27,6 +27,9 @@ pld::State pld::Core::onUserUpdateSettings(float elapsed_time) {
 		reportStateChange();
 		return pld::State::Titlescreen;
 	}
+	if (GetKey(olc::L).bPressed) {
+		level.lives++;
+	}
 	if (GetKey(olc::T).bPressed) {
 		reportStateChange();
 		return pld::State::Titlescreen;

@@ -9,6 +9,7 @@
 namespace pld {
 	class Paddle {
 	public:
+		// Num describes the current selected paddle, bigger nums are bigger paddles.
 		int num = 3;
 		olc::vf2d base_pos = { 0.0f, 0.0f };
 		float speed = 0.0f;
@@ -17,6 +18,9 @@ namespace pld {
 		PaddleShape shape = PaddleShape::Flat;
 		olc::vf2d getPos() {
 			return { base_pos.x + offset, base_pos.y};
+		}
+		int getWidth() {
+			return width.at(num);
 		}
 	};
 }

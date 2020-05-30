@@ -26,6 +26,7 @@ namespace pld {
 		pld::Directions left_right = pld::Directions::Stationary;
 		olc::vf2d scale = { scale_val, scale_val };
 		olc::vf2d pos = { 0.0f, 0.0f };
+		olc::vf2d last_pos = { 0.0f, 0.0f };
 	public:
 		// Methods:
 		void updateDirection(CollisionType collision);

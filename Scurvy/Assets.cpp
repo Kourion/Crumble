@@ -9,7 +9,7 @@ void pld::Core::loadSpritesAndDecals() {
 	this->dcl_title = std::unique_ptr<olc::Decal>(new olc::Decal(spr_title.get()));
 	this->spr_background = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/pirate.png"));
 	this->spr_highscore = std::unique_ptr<olc::Sprite>(new olc::Sprite("./Graphics/ocean_1.png"));
-	for (int64_t i = 0; i < 14; i++) {
+	for (int i = 0; i < 14; i++) {
 		// Loop length needs to always match the vector having the most elements.
 		if (i < 10) { this->spr_border->push_back(std::shared_ptr<olc::Sprite>(new olc::Sprite("./Graphics/border_" + std::to_string(i) + ".png"))); }
 		if (i < 5) {
@@ -32,7 +32,7 @@ void pld::Core::loadSpritesAndDecals() {
 				level.paddle.width[0] = width;
 			}
 			else {
-				width = level.paddle.width[(i - 1)] * 2;
+				width = level.paddle.width[(i - (int)1)] * 2;
 				level.paddle.width.push_back(width);
 			}
 		}
