@@ -53,7 +53,7 @@ void pld::Core::drawWaterBottomDecal(float elapsed_time) {
 		int i = j - 1;
 		DrawDecal({ (float)(j * tiles.size), offset_y }, dcl_water->at(level.water_tile_selector[i]).get());
 	}
-	level.paddle.base_pos.x = (float)(level.width / 2);
+	level.paddle.base_pos.x = (float)(level.width / 2) - (level.paddle.getWidth() / 2);
 	level.paddle.base_pos.y = offset_y;
 }
 
@@ -74,7 +74,7 @@ void pld::Core::drawWaterBottomSprite() {
 		int i = j - 1;
 		DrawSprite({ (j * tiles.size), offset_y }, spr_water->at(level.water_tile_selector[i]).get());
 	}
-	level.paddle.base_pos.x = (float)(level.width / 2);
+	level.paddle.base_pos.x = (float)(level.width / 2) - (level.paddle.getWidth() / 2);
 	level.paddle.base_pos.y = (float)offset_y;
 }
 
