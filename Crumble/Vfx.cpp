@@ -1,8 +1,9 @@
-#include "Core.h"
-
 //#############################################################################
 //# Load Vfx, currently only for Windows:                                     #
 //#############################################################################
+
+#include "Core.h"
+
 
 void pld::Core::initVfx() {
 #if defined(pldSOUND)
