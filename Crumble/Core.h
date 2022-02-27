@@ -50,7 +50,7 @@ public:
 		this->level = LevelState();
 		this->score = ScoreScreen();
 		this->button = ButtonState();
-		sAppName = "Core";
+		sAppName = "Crumble";
 	}
 	bool OnUserCreate() override;
 	bool OnUserUpdate(float elapsed_time) override;

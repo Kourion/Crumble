@@ -86,18 +86,12 @@ void pld::Core::drawBolt(float elapsed_time) {
 			level.bolt.pos = level.paddle.getPos();
 			level.bolt.pos.x += ((level.paddle.width[level.paddle.num] / 2) - (level.bolt.scaled_radius));
 			level.bolt.pos.y -= 32;
-			//if (GetKey(olc::SPACE).bHeld) {
-			//	if (bolt.speed < 500.0f) {
-			//		bolt.speed = 500.0f;
-			//	}
-			//	bolt.speed += 1000.0f * elapsed_time;
-			//	if (bolt.speed > 1000.0f) {
-			//		bolt.speed = 1000.0f;
-			//	}
-			//}
 			if (GetKey(olc::SPACE).bReleased) {
 				sounds->at(7).get()->play();
-				level.bolt.speed = (float)(ease == Ease::Normal ? 700 : ease == Ease::Hard ? 900 : 1100); //Last one is Ease::BoR
+				// Set bolt speed depending on ease level, last one is Ease::BoR (Bottle of Rum).
+				level.bolt.speed = (float)(ease == Ease::Normal ? 700 : ease == Ease::Hard ? 900 : 1100);
+				// Increase speed additionally for each achieved level.
+				level.bolt.speed += (level.lvl - 1) * 50.0f;
 				level.bolt.is_launched = true;
 				updateDeviation();
 				updateBolt(elapsed_time, pld::Directions::Up, level.past_paddle_speed >= 0 ? pld::Directions::Right : pld::Directions::Left);
@@ -130,7 +124,7 @@ void pld::Core::drawBolt(float elapsed_time) {
 				angle = - (angle - 45.0f);// +45.0f;
 				centre = { (level.bolt.scaled_radius / 2) * 0.5f, (level.bolt.scaled_radius / 2) * 1.5f };
 			}
-			angle = angle / 180 * PI_L;
+			angle = static_cast<float>((angle / 180) * PI_L);
 			DrawRotatedDecal(level.bolt.pos, decal, angle, centre, level.bolt.scale);
 		}
 		else {
@@ -279,8 +273,7 @@ void pld::Core::updateDeviation() {
 		float speed_drift = (abs(level.paddle.speed) / 250.0f) / 2;
 		bool inLineMovement = ((level.bolt.left_right == pld::Directions::Right && level.paddle.speed >= 0.0f) 
 			|| (level.bolt.left_right == pld::Directions::Left && level.paddle.speed <= 0.0f) );
-
-		std::cout << "In line: " << (inLineMovement ? "true" : "false") << std::endl;
+		// std::cout << "In line: " << (inLineMovement ? "true" : "false") << std::endl;
 
 		float drift = 0.0f;
 		if (inLineMovement) {

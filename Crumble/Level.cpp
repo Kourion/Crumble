@@ -55,18 +55,18 @@ pld::State pld::Core::onUserUpdateLevel(float elapsed_time) {
 
 void pld::Core::drawLevel(bool generateLevel) {
 	updateFieldWidth(ScreenWidth());
-	int inner_field_width = level.width - (2 * tiles.size);
-	int row_one_y = 120;
-	int row_height = 20;
-	bool isGreen = true;
+	//int inner_field_width = level.width - (4 * tiles.size);
+	//int row_one_y = 120;
+	//int row_height = 20;
+	//bool isGreen = true;
 
 	std::string str = "";
 	str += level.player1.name;
 	str += ": Level(" + std::to_string(level.lvl) + ") Score[";
-	str += std::to_string((int)level.player1.points.flt);
+	str += std::to_string((int)level.player1.score);
 	str += "] Lives(";
 	str += std::to_string(level.lives);
-	str += ") Score-Multiplier"; str += "{"; str += std::to_string((int)level.bolt.speed); str += "x}";
+	str += ") Score-Multiplier"; str += "{"; str += std::to_string((int)level.bolt.speed/2); str += "x}";
 	DrawStringDecal({ 32, (float)(3+level.top_btm_offset) }, str, olc::Pixel(246, 198, 55), { 2.0f, 2.0f});
 	
 	if (generateLevel) {
@@ -111,7 +111,7 @@ void pld::Core::drawLevel(bool generateLevel) {
 void pld::Core::generateWallElements() {
 	level.map.clear();
 	updateFieldWidth(ScreenWidth());
-	int inner_field_width = level.width - (tiles.size * 2);
+	int inner_field_width = level.width - (tiles.size * 4);
 	int block_num__ = inner_field_width / tiles.size;
 	int empty_pixel = inner_field_width % tiles.size;
 	int amount_of_rows = level.lvl+ level.min_rows < level.max_rows ? level.lvl + level.min_rows : level.max_rows;
@@ -122,7 +122,7 @@ void pld::Core::generateWallElements() {
 	for (int row_num = 0; row_num < amount_of_rows; row_num++) {
 		int block_num = block_num__;
 		level.map[row_num] = LevelRow();
-		int x_offset = tiles.size;
+		int x_offset = tiles.size * 2;
 		y_offset = y_offset_max - (row_num * tiles.size) - (row_num * row_spacer);
 		int blocks = 0;
 		while (block_num > 0) {

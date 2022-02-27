@@ -15,7 +15,7 @@ pld::State pld::Core::onUserUpdateHighscore(float elapsed_time) {
         score.has_printed = false;
         score.entries.clear();
         if (level.player1.name != "") {
-            score.entries.insert(std::pair<float, std::string>(level.player1.points.flt, level.player1.name));
+            score.entries.insert(std::pair<float, std::string>(level.player1.score, level.player1.name));
         }
         loadHighscorePresets();
         //std::string str_flt = "";
@@ -33,7 +33,7 @@ pld::State pld::Core::onUserUpdateHighscore(float elapsed_time) {
             while (reader >> p) {
                 p.updateNmeScr();
                 //std::cout << "Reader: " << p.name << " -> " << p.score.flt << std::endl;
-                std::pair<float, std::string> entry(p.points.flt, p.name);
+                std::pair<float, std::string> entry(p.score, p.name);
                 score.entries.insert(entry);
             }
         }
@@ -91,7 +91,7 @@ pld::State pld::Core::showHighscore(float fElapsedTime) {
         if (i < 11) {
             DrawStringDecal({ align_x, align_y }, entry, olc::Pixel(246, 198, 55), { 3.5f * getGlobalScale().x, 4.5f * getGlobalScale().y });
         }
-        if (points == level.player1.points.flt && name == level.player1.name) {
+        if (points == level.player1.score && name == level.player1.name) {
             player1_pos = i;
         }
 
@@ -100,7 +100,7 @@ pld::State pld::Core::showHighscore(float fElapsedTime) {
         align_y += (50 * getGlobalScale().y);
     }
     player1_y += ((520) * getGlobalScale().y);
-    DrawStringDecal({ align_x, player1_y }, getScoreEntry(player1_pos, level.player1.points.flt, level.player1.name),
+    DrawStringDecal({ align_x, player1_y }, getScoreEntry(player1_pos, level.player1.score, level.player1.name),
         olc::Pixel(246, 198, 55), { 3.5f * getGlobalScale().x, 4.5f * getGlobalScale().y });
 
     align_y = player1_y + (50 * getGlobalScale().y);
@@ -127,7 +127,7 @@ pld::State pld::Core::showHighscore(float fElapsedTime) {
 void pld::Core::loadHighscorePresets() {
     for (Player& p : score.presets)
     {
-        std::pair<float, std::string> entry(p.points.flt, p.name);
+        std::pair<float, std::string> entry(p.score, p.name);
         score.entries.insert(entry);
     }
 }

@@ -9,7 +9,7 @@ pld::State pld::Core::onUserUpdateLevelUp(float elapsed_time) {
 	std::string str = "";
 	str += level.player1.name;
 	str += ": Level(" + std::to_string(level.lvl) + ") Score[";
-	str += std::to_string((int)level.player1.points.flt);
+	str += std::to_string((int)level.player1.score);
 	str += "] Lives(";
 	str += std::to_string(level.lives);
 	str += ") Score-Multiplier"; str += "{"; str += std::to_string((int)level.bolt.speed); str += "x}";

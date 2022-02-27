@@ -7,44 +7,39 @@
 
 namespace pld {
 
-    typedef union {
-        float flt = 0.0f;
-        unsigned char cbt[4];
-    }player_points;
-
     struct Player {
     public:
-        player_points points;
+        float score;
         std::string name = "JOLLYWAG";
         std::string crpt_scr = "";
         std::string crpt_nme = "";
         Player() {
-            points.flt = 0.0f;
+            score = 0.0f;
         }
-        Player(float points, std::string str) {
-            this->points.flt = points;
-            name = str;
+        Player(float score_, std::string name_) {
+            this->score = score_;
+            this->name = name_;
         }
 
-        std::string getScoreAsCrptStr() const {
-            std::string str = "";
-            for (unsigned int i = 0; i < 4; i++)
-            {
-                str += (points.cbt[i] ^ 0b10101100);
-            }
-            return str;
-        }
-        void setScoreAsClrFlt() {
-            //std::cout << "Scr Flt Size: " << crpt_scr.size() << " -cbt: " << std::endl;
-            points.flt = 0.0f;
-            for (unsigned int i = 0; i < crpt_scr.size(); i++)
-            {
-                if (crpt_scr[i] != '\0') { // && i < 4
-                    points.cbt[i] = crpt_scr[i];
-                    points.cbt[i] ^= 0b10101100;
-                }
-            }
-        }
+        //std::string getScoreAsCrptStr() const {
+        //    std::string str = "";
+        //    for (unsigned int i = 0; i < 4; i++)
+        //    {
+        //        str += (points.cbt[i] ^ 0b10101100);
+        //    }
+        //    return str;
+        //}
+        //void setScoreAsClrFlt() {
+        //    //std::cout << "Scr Flt Size: " << crpt_scr.size() << " -cbt: " << std::endl;
+        //    points.flt = 0.0f;
+        //    for (unsigned int i = 0; i < crpt_scr.size(); i++)
+        //    {
+        //        if (crpt_scr[i] != '\0') { // && i < 4
+        //            points.cbt[i] = crpt_scr[i];
+        //            points.cbt[i] ^= 0b10101100;
+        //        }
+        //    }
+        //}
         std::string getNameAsCrptStr() const {
             std::string str = "";
             for (unsigned int i = 0; i < name.size(); i++)
@@ -62,7 +57,7 @@ namespace pld {
         }
 
         void updateNmeScr() {
-            setScoreAsClrFlt();
+            //setScoreAsClrFlt();
             setNameAsClrStr();
         }
 
