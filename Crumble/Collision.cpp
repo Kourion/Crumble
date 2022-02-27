@@ -44,19 +44,6 @@ pld::CollisionType pld::Core::willCollide(olc::vf2d expected_pos) {
 				   )
 				) 
 			{
-
-				//float flt_distance_vertical =
-				//	level.bolt.up_down == Directions::Up ?
-				//	brick.first.y + 32 + level.bolt.scaled_radius - expected_pos.y :
-				//	expected_pos.y - brick.first.y - level.bolt.scaled_radius;
-
-				//float flt_distance_horizontal =
-				//	level.bolt.left_right == Directions::Right ?
-				//	expected_pos.x - brick.first.x - level.bolt.scaled_radius :
-				//	brick.first.x + tiles.size * brick.second + level.bolt.scaled_radius - expected_pos.x;
-				
-				//collision = std::abs(flt_distance_vertical) < std::abs(flt_distance_horizontal) ? CollisionType::BoxTop : CollisionType::BoxSide;
-
 				if (expected_pos.x > brick.first.x && expected_pos.x < brick.first.x + tiles.size * brick.second
 					&&
 					expected_pos.y > brick.first.y - level.bolt.scaled_radius && expected_pos.y < brick.first.y + 32 + level.bolt.scaled_radius) {
@@ -72,7 +59,7 @@ pld::CollisionType pld::Core::willCollide(olc::vf2d expected_pos) {
 				row_num = row.first;
 
 				// Collisions give score points!
-				level.player1.points.flt += level.bolt.speed / brick.second;
+				level.player1.score += (level.bolt.speed / brick.second) / 2;
 
 				for (int i = 0; i < brick.second; i++)
 				{

@@ -27,7 +27,7 @@ int main()
 		pld::Core core;
 		restart = core.restart;
 		//if (core.Construct(screen_width_a, screen_height_a, 1, 1, true, true)) {
-		if (core.Construct(screen_width_b, screen_height_b, 1, 1, false, true)) {
+		if (core.Construct(screen_width_b, screen_height_b, 1, 1, false, false)) {
 			core.Start();
 		}
 		//screen_width = core.settings.screen_width;

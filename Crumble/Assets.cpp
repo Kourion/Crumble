@@ -32,7 +32,7 @@ void pld::Core::loadSpritesAndDecals() {
 				level.paddle.width[0] = width;
 			}
 			else {
-				width = level.paddle.width[(i - (int)1)] * 2;
+				width = level.paddle.width[static_cast<std::uint64_t>(i) - static_cast<std::uint64_t>(1)] * 2;
 				level.paddle.width.push_back(width);
 			}
 		}

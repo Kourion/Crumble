@@ -58,7 +58,7 @@ void pld::Core::resetIfStateChanged() {
 			sounds->at(0).get()->stop();
 			sounds->at(11).get()->stop();
 #endif
-			level.player1.points.flt = 0.0f;
+			level.player1.score = 0.0f;
 			level.bolt.speed = 0.0f;
 			level.impacts.clear();
 			level.start = true;
@@ -132,7 +132,7 @@ void pld::Core::setPresets() {
 	score.presets.push_back(Player(60000.0f, "THE NAVIGATOR"));
 	score.presets.push_back(Player(70000.0f, "THE BOATSWAIN"));
 	score.presets.push_back(Player(80000.0f, "THE HELMSMAN"));
-	score.presets.push_back(Player(99003.0f, "THE CAPTAIN"));
+	score.presets.push_back(Player(99000.0f, "THE CAPTAIN"));
 }
 
 bool pld::Core::OnUserDestroy() {
